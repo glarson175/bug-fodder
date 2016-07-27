@@ -13,15 +13,15 @@ public class Sieve {
     
     public static void printsieve(int[] results, boolean[] prime) {
 	    System.out.print("> ");
-	    char c = ' ';
+	    char primeNumbers = ' ';
 	    // Just loop through the array and print the values.
 	    // Put a (T) after each one if it has been marked
 	    // prime; put a (F) after one if it has  been marked
 	    // composite (not prime).
 	    
 	    for (int j = 0; j < results.length;) {
-			c = prime[j] ? 'T' : 'F';
-			System.out.print(results[j] + "(" + c + ") ");
+			primeNumbers = prime[j] ? 'T' : 'F';
+			System.out.print(results[j] + "(" + primeNumbers + ") ");
 			j++;
 	    }
 	    System.out.println();
@@ -35,37 +35,32 @@ public class Sieve {
     
     public static void printSieve(int[] results) {
 
-	// As long as there are elements in the array,
-	// print it.  Otherwise, print "BLANK".
+		// As long as there are elements in the array,
+		// print it.  Otherwise, print "BLANK".
 	
-		if (results != null)
-		{
+		if (results != null) {
 		    System.out.print("> ");
-		    for (int j = 1; j < results.length;) 
-		    {
+		    for (int j = 1; j < results.length;) {
 				System.out.print(results[j] + " ");
 				j++;
 		    }
-		} 
-		else 
-		{
-		    System.out.println("BLANK");
+		} else {
+			System.out.println("BLANK");
 		}
     }
 
     /**
-     * @param s the size of the array to return
+     * @param size the size of the array to return.
      */
     
-    public static boolean[] getTrueArray(int s) {
-		boolean toReturn[] = new boolean[s];
+    public static boolean[] getTrueArray(int size) {
+		boolean [] toReturn = new boolean[size];
 		
-		for (int j = 0; j < s; j++) {
+		for (int j = 0; j < size; j++) {
 		    toReturn[j] = true;
 		}
 		// Return an all-true array.
 		return toReturn;
-		
     }
 
     /**
@@ -76,17 +71,14 @@ public class Sieve {
      * @return int[] the prime numbers from 1 to n 
      */
     
-    public static int[] convertResults(int[] results, boolean prime[] ) 
-    {
+    public static int[] convertResults(int[] results, boolean[] prime) {
 
 		// Create an ArrayList.	 If a value is true for primality,
 		// add it to the array list.
 	
 		ArrayList<Integer> actual = new ArrayList<Integer>();
-		for (int j = 0; j < results.length; j++) 
-		{
-		    if (prime[j]) 
-		    {
+		for (int j = 0; j < results.length; j++) {
+		    if (prime[j]) {
 		    	actual.add(Integer.valueOf(j + 1));
 		    }
 		}
@@ -103,8 +95,7 @@ public class Sieve {
 		
 		int[] toReturn = new int[actual.size()];
 
-		for (int j = 0; j < actual.size(); j++) 
-		{
+		for (int j = 0; j < actual.size(); j++) {
 		    toReturn[j] = actual.get(j);
 		}
 		return toReturn;
@@ -118,22 +109,19 @@ public class Sieve {
      * @return int[] array of all prime ints
      */
     
-    public static int[] calculateSieve(int[] results) 
-    {
+    public static int[] calculateSieve(int[] results) {
 		int ptr = 1; // means value 2
 		int size = results.length;
 		// At this point, assume all numbers are prime.
 		boolean[] prime = getTrueArray(size);
 		
-		while (ptr < Math.sqrt(results.length)) 
-		{
+		while (ptr < Math.sqrt(results.length)) {
 		    // if this number is marked false, ignore it - all other
 		    // numbers which are multiples of it will also already
 		    // be marked false
 		    // Otherwise, loop through and look for any multiples of
 		    // it, which should now be marked false
-		    if (prime[ptr] == true) 
-		    {
+		    if (prime[ptr] == true) {
 				int val = results[ptr]; // value pointed at 
 				int localPtr = ptr; // secondary pointer
 				int counter = 2; // multiple counter
@@ -147,14 +135,10 @@ public class Sieve {
 				// These numbers are composite, so mark their prime[localPtr]
 				// value as false.
 				
-				while (localPtr <= size) 
-				{
+				while (localPtr <= size) {
 				    comp = val * counter;
-				    // System.out.println("\t" + val + " * " + counter + " = " + comp);
 				    localPtr = comp - 1;
-				    if (localPtr < size)
-				    {
-						// System.out.println("\tSetting " + results[localPtr] + " to F");
+				    if (localPtr < size) {
 						prime[localPtr] = false;
 				    }
 				    counter++;
@@ -177,14 +161,11 @@ public class Sieve {
      * @return int[] array of correct format, as indicated above
      */
     
-    public static int[] generateSieve(int maxSize) 
-    {
+    public static int[] generateSieve(int maxSize) {
 		int size = maxSize;
 		int[] toReturn = new int[maxSize];
-		for (int j = 0; j <= maxSize; j++) 
-		{
-		    if (j == 0)
-		    {
+		for (int j = 0; j <= maxSize; j++) {
+		    if (j == 0) {
 		    	j++;
 		    }
 		    toReturn[j - 1] = j;
@@ -198,27 +179,21 @@ public class Sieve {
      * @return maximum size of array
      */
     
-    public static int calculateMax(String[] args) 
-    {
+    public static int calculateMax(String[] args) {
 		int toReturn = -1; // default (invalid) value
-		if (args.length > 0) 
-		{
+		
+		if (args.length > 0) {
 		    toReturn = (int) Integer.parseInt(args[0]);
-		    if (toReturn < 1) 
-		    {
-			// User did not enter a valid integer
-			throw new IllegalArgumentException();
-		    } 
-		    else {}
-		} 
-		else 
-		{
+		    if (toReturn < 1) {
+		    	// User did not enter a valid integer
+		    	throw new IllegalArgumentException();
+		    }
+		} else {
 		    // User forgot to enter an argument!  
 		    throw new IllegalArgumentException();
 		}
 		return toReturn;
     }
-	    
     
     /**
      * Main method.  Accepts one argument, which should be parseable
@@ -229,8 +204,7 @@ public class Sieve {
      * @param args maximum value for sieve as first arg
      */
     
-    public static void main(String[] args) 
-    {
+    public static void main(String[] args) {
 		System.out.println("Sieve of Eratosthenes");
 	
 		// Get the passed-in argument of the maximum value for
@@ -242,12 +216,9 @@ public class Sieve {
 	
 		// Other arguments past the first will be ignored.
 		
-		try 
-		{
+		try {
 		    _max = calculateMax(args);
-		} 
-		catch (Exception ex) 
-		{
+		} catch (IllegalArgumentException ex) {
 		    System.out.println("You forgot to enter a valid integer (> 0)!");
 		    System.out.println("Assuming you meant to type 100...");
 		    _max = 100;
